@@ -1,21 +1,7 @@
 -- Database: fantasy_league
 
-DROP DATABASE IF EXISTS fantasy_league;
-
-CREATE DATABASE fantasy_league
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'es_ES.UTF8'
-    LC_CTYPE = 'es_ES.UTF8'
-    LOCALE_PROVIDER = 'libc'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
 
 --Creamos un usuario que es el que vamos a usar por ahora y le damos todos los privilegios para poder trabajar y hacer pruebas
-	drop user if exists usuario_prueba;
-	create user usuario_prueba  with password 'test' superuser;
 
 	drop function if exists sortear_jugadores_posicion;
 	drop function if exists crear_ligas_demo;
@@ -258,44 +244,6 @@ insert into jornadas (f_inicio, f_fin, temporada_id) values ('2025-08-16','2025-
 
 
 	---- Todo esto a partir de aquí son lineas que uso como comprobaciones pero que eliminaré cuando crea que el script ya está en un estado definitivo.
-
-	select * from jugadores order by equipo_profesional_id;
-
-	select * from usuarios;
-
-	select * from temporadas;
-
-	select distinct posicion from jugadores;
-
-	select * from equipos_profesionales;
-
-	SELECT COUNT(*)
-FROM jugadores
-WHERE fecha_nacimiento IS NULL;
-
-SELECT COUNT(*)
-FROM jugadores
-WHERE equipo_profesional_id IS NULL;
-
-select * from ligas;
-
-select * from equipos;
-
-select u.username, e.nombre, l.nombre_liga from usuarios u
-join equipos e on u.usuario_id = e.usuario_id
-join ligas l on l.liga_id = e.liga_id;
-
-select j.nombre, j.fecha_nacimiento, j.valor, j.posicion from plantillas p
-join equipos e on e.equipo_id = p.equipo_uuid
-join jugadores j on j.jugador_id = p.jugador_pro
-where e.equipo_id = '19b29d7f-ea1b-481c-ac52-9f1a7faef2f3';
-
---Query para comprobar que al generar una alineación inicial están las posiciones que quiero
-select * from alineaciones a
-join jugadores j on a.jugador_id = j.jugador_id
-order by j.posicion;
-
-select * from equipos;
 
 
 -- Crea N ligas de demo asignando el propietario de forma rotativa.
